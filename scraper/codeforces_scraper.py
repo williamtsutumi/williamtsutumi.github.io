@@ -26,7 +26,9 @@ def scrape_codeforces():
         driver.get(conf.get_page(i))
         time.sleep(1)
 
-        output.append(extract_table_info(driver, conf))
+        rows_data = extract_table_info(driver, conf)
+        for row in rows_data:
+            output.append(row)
 
     with open("codeforces.json", "w") as outfile:
         json.dump(output, outfile)
