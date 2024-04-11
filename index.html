@@ -2,9 +2,551 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Calendar</title>
+    <script src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(1, 4, 9);
+            color: white;
+        }
+        main {
+            width: 70%;
+            margin: auto;
+            padding: 20px;
+            background-color: rgb(13, 17, 23);
+
+            border-style: solid;
+            border-color: rgb(48, 54, 61);
+            border-width: 1px;
+            border-radius: 5px;
+        }
+        
+        table {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        tbody {
+            padding: 50px 50px;
+        }
+        .calendar {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table.calendar th {
+            width: 2%;
+            text-align: left;
+        }
+        table.calendar td {
+            background-color: dimgray;
+        }
+        .calendar-header {
+            text-align: left;
+            font-weight: bold;
+        }
+        .day {
+            width: 10px;
+            height: 10px;
+            padding: 0;
+            margin: 0px 4px;
+            border-radius: 2px;
+        }
+    </style>
+
+    <style>
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            position: absolute;
+            transform: translate(-50%);
+            left: 50%;
+            z-index: 1;
+            bottom: 125%;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-    yeap
+    <main>
+        <table id="calendar" class="calendar">
+            <!-- <thead>
+                <th></th>
+                <th>Jan</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Feb</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Mar</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Apr</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>May</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Jun</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Jul</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Aug</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Sep</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Oct</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Nov</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Dec</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </thead> -->
+            <tbody>
+                <tr>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                </tr>
+                <tr>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                </tr>
+                <tr>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                </tr>
+                <tr>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                </tr>
+                <tr>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                </tr>
+                <tr>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                </tr>
+                <tr>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                    <td class="day tooltip"><span class="tooltiptext"></span></td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Whats this</h2>
+        <p>This is meant to be a github-like activity calendar where we can view a user's actions by days. Here i unite my activity over some computer science related websites that i use frequently (or every now and then).</p>
+        <h2>How this works</h2>
+        <p>
+            All the necessary data is gathered via webscraping,
+            but since i'm not up to pay for a website hosting, i'm using github pages which is free, although comes with some limitations such as being a static page.
+            A static page is quite a big problem to keep this calendar up to date, so my work around was to output my webscraping to a json, which is put into this page's javascript.
+            This way, all i have to do is to run my python webscraper every a certain amount of time and commit the changed json to this repository,
+            which is a task that i can put my computer to automatically execute once it is turned on.
+            I choose to update every month so that the repository don't get polluted by automatic commits.
+            <br>The webscraper is also in <a href="https://github.com/williamtsutumi/williamtsutumi.github.io">this page's repository</a> if you want to check it out.
+        </p>
+    </main>
 </body>
 </html>
