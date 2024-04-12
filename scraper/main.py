@@ -1,17 +1,33 @@
 from scraper import scrape_everything
 import json
 
+empty_index = {"cf": 0, "gh": 0}
+
+
+def add_cf_json(output):
+    with open('codeforces.json') as json_file:
+        activities = json.load(json_file)
+        for activity in activities:
+            date = activity["date"]
+            if not (date in output):
+                output[date] = dict(empty_index)
+            output[date]["cf"] += 1
+
+
+def add_gh_json(output):
+    with open('github.json') as json_file:
+        activities = json.load(json_file)
+        for activity in activities:
+            date = activity["date"]
+            if not (date in output):
+                output[date] = dict(empty_index)
+            output[date]["gh"] = activity["count"]
+
 
 def save_githubpages_json():
     all_data = {}
-    with open('codeforces.json') as json_file:
-        subs = json.load(json_file)
-        for s in subs:
-            date = s['date']
-            if date in all_data:
-                all_data[date] += 1
-            else:
-                all_data[date] = 1
+    add_cf_json(all_data)
+    add_gh_json(all_data)
 
     with open('gh_pages.json', 'w') as data:
         json.dump(all_data, data)

@@ -9,3 +9,11 @@ class CodeforcesConfigs:
 
     def get_page(self, num: int):
         return self.cf_url + '/page/' + str(num)
+
+
+class GithubConfigs:
+    user = 'williamtsutumi'
+    gh_url = 'https://github.com/' + user
+
+    no_contribution_text = 'No contributions on '
+    first_tooltip = 7
