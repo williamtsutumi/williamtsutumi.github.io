@@ -9,6 +9,7 @@ const firstCol = 1;
 
 const codeforcesColor = 'MidnightBlue';
 const githubColor = 'darkGreen';
+const inactiveColor = 'dimgray';
 
 window.onload = function () {
     addJsonInfoToCalendar();
@@ -50,8 +51,13 @@ function setDayActivity(cell, date) {
     }
     const cf = json[dateStr]["cf"];
     const gh = json[dateStr]["gh"];
-    if (cf >= gh) { cell.style.backgroundColor = codeforcesColor; }
-    else { cell.style.backgroundColor = githubColor; }
+    let cf_checked = document.getElementById('cf-checkbox').checked;
+    let gh_checked = document.getElementById('gh-checkbox').checked;
+
+    if (cf_checked && cf >= gh) { cell.style.backgroundColor = codeforcesColor; }
+    else if (gh_checked && gh > 0) { cell.style.backgroundColor = githubColor; }
+    else { cell.style.backgroundColor = inactiveColor; }
+
     cell.getElementsByTagName('span')[0].innerHTML = (cf + gh) + ' activities on ' + dateStr;
 }
 

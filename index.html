@@ -59,7 +59,40 @@
         }
 
         #day-details {
+            background-color: rgb(22,27,34);
+            padding: 10px;
+            border-radius: 3px;
+            display: inline-block;
             margin-top: 10px;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        .filter {
+            padding: 5px;
+            margin-left: 10px;
+            display: inline-block;
+            border-color: rgb(48, 54, 61);
+            border-style: solid;
+            border-width: 1px;
+            cursor: pointer;
+        }
+
+        .filter:has(input:checked) {
+            border-color: green;
+        }
+
+        .filter label {
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .filters-container p {
+            align-content: center;
+            margin: 0;
+            display: inline-block;
         }
     </style>
 
@@ -140,7 +173,18 @@
     </header>
     <main>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;This is meant to be a github-like activity calendar where we can view a user's actions over the year. Here i unite my activity over some computer science related websites that i use frequently (or every now and then).</p>
-        <div >
+        <div>
+            <div class="d-flex filters-container">
+                <p>Filters:</p>
+                <div class="filter">
+                    <input id="cf-checkbox" type="checkbox" checked onclick="addJsonInfoToCalendar()">
+                    <label for="cf-checkbox">Codeforces</label>
+                </div>
+                <div class="filter">
+                    <input id="gh-checkbox" type="checkbox" checked onclick="addJsonInfoToCalendar()">
+                    <label for="gh-checkbox">Github</label>
+                </div>
+            </div>
             <table id="calendar" class="calendar">
                 <tbody>
                     <tr class="hide">
@@ -169,7 +213,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div id="day-details" class="">
+            <div id="day-details">
                 <div id="detail-title">Click on a square for details</div>
                 <div id="codeforces-detail"></div>
                 <div id="github-detail"></div>
