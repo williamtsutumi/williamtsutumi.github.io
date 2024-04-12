@@ -47,11 +47,19 @@
             margin: 0px 4px;
             border-radius: 2px;
         }
+
+        table.calendar .day:hover {
+            cursor: pointer;
+        }
         tbody tr.hide {
             visibility: hidden;
         }
         td {
             font-size: 12px;
+        }
+
+        #day-details {
+            margin-top: 10px;
         }
     </style>
 
@@ -132,7 +140,7 @@
     </header>
     <main>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;This is meant to be a github-like activity calendar where we can view a user's actions over the year. Here i unite my activity over some computer science related websites that i use frequently (or every now and then).</p>
-        <div class="d-flex">
+        <div >
             <table id="calendar" class="calendar">
                 <tbody>
                     <tr class="hide">
@@ -161,11 +169,14 @@
                     </tr>
                 </tbody>
             </table>
-            <div>
-                
+            <div id="day-details" class="">
+                <div id="detail-title">Click on a square for details</div>
+                <div id="codeforces-detail"></div>
+                <div id="github-detail"></div>
             </div>
         </div>
-        <!-- <h2>How this works</h2>
+        <hr>
+        <h2>How this works</h2>
         <p>
             &nbsp;&nbsp;&nbsp;&nbsp;All the necessary data is gathered via webscraping,
             but since i'm not up to pay for a website hosting, i'm using github pages which is free, although comes with some limitations such as being a static page.
@@ -176,7 +187,7 @@
             <br>
             <br>&nbsp;&nbsp;&nbsp;&nbsp;The whole visual part of this page was done entirely with raw javascript and css.
             <br>&nbsp;&nbsp;&nbsp;&nbsp;The webscraper is also in <a href="https://github.com/williamtsutumi/williamtsutumi.github.io">this page's repository</a> if you want to check it out.
-        </p> -->
+        </p>
     </main>
 </body>
 </html>
