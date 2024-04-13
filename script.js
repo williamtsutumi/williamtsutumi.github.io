@@ -11,35 +11,102 @@ const codeforcesColor = 'MidnightBlue';
 const githubColor = 'darkGreen';
 const inactiveColor = 'dimgray';
 
+let currentSelectedYear = 0;
+
 window.onload = function () {
+    addYearOptions();
     addJsonInfoToCalendar();
     addClickListener();
 }
 
-function addJsonInfoToCalendar() {
+function addYearOptions() {
+    document.getElementById('year-filter-container').innerHTML +=
+        `<div class="filter">
+            <input id="year0" type="checkbox" checked onclick="addJsonInfoToCalendar(0)">
+            <label for="year0">Now</label>
+        </div>`;
+
+    const yearNow = new Date().getFullYear();
+    const yearDiff = yearNow - 2022;
+    for (let i = 1; i <= yearDiff; i++) {
+        const id = 'year' + i;
+        document.getElementById('year-filter-container').innerHTML +=
+            `<div class="filter">
+                <input id="${id}" type="checkbox" onclick="addJsonInfoToCalendar(${i})">
+                <label for="${id}">${i} year(s) ago</label>
+            </div>`;
+    }
+}
+
+function addJsonInfoToCalendar(yearDiff) {
+    if (yearDiff === undefined) yearDiff = currentSelectedYear;
+    currentSelectedYear = yearDiff;
+    updateYearCheckboxes(yearDiff);
+    
     let table = document.getElementById("calendar");
-    let dayOfWeek = new Date().getDay();
+    resetMonthsNames(table);
+
     let currDate = new Date();
+    currDate.setTime(currDate.getTime() - (yearDiff * msInADay * 365));
+    let dayOfWeek = currDate.getDay();
+    hideExtraDaySquares(table, dayOfWeek);
+    highlightRightMostSquare(table, table.rows[firstLin+dayOfWeek].cells[numCols-1]);
+
     for (let i = firstLin+dayOfWeek; i >= firstLin; i--) {
         setDayActivity(table.rows[i].cells[numCols-1], currDate);
+        writeMonthName(currDate, table);
         currDate.setTime(currDate.getTime() - msInADay);
     }
 
     for (let j = numCols-2; j >= firstCol; j--) {
         for (let i = numLins-1; i >= firstLin; i--) {
             setDayActivity(table.rows[i].cells[j], currDate);
+            writeMonthName(currDate, table.rows[0].cells[j]);
 
-            if (currDate.getDate() == 1) {
-                table.rows[0].cells[j].innerHTML = currDate.toLocaleString('en-US', { month: 'long' }).substring(0, 3);
-                table.rows[0].cells[j].style.visibility = 'visible';
-                table.rows[0].cells[j].style.background = 'rgba(0,0,0,0)';
-            }
             currDate.setTime(currDate.getTime() - msInADay);
         }
     }
-    
+}
+
+function highlightRightMostSquare(table, cell) {
+    for (let i = firstLin; i < numLins; i++) {
+        table.rows[i].cells[numCols-1].style.borderWidth = '0';
+    }
+    cell.style.border = 'solid';
+    cell.style.borderColor = 'yellow';
+    cell.style.borderWidth = '1px';
+}
+
+function updateYearCheckboxes(selectedYear) {
+    const yearNow = new Date().getFullYear();
+    const yearDiff = yearNow - 2022;
+    for (let i = 0; i <= yearDiff; i++) {
+        document.getElementById('year' + i).checked = false;
+    }
+    document.getElementById('year' + selectedYear).checked = true;
+}
+
+function writeMonthName(date, cell) {
+    if (date.getDate() != 1) return;
+
+    cell.innerHTML = date.toLocaleString('en-US', { month: 'long' }).substring(0, 3);
+    cell.style.visibility = 'visible';
+    cell.style.background = 'rgba(0,0,0,0)';
+}
+
+function hideExtraDaySquares(table, dayOfWeek) {
+    for (let i = firstLin; i < numLins; i++) {
+        table.rows[i].cells[firstLin].style.visibility = 'visible';
+        table.rows[i].cells[numCols-1].style.visibility = 'visible';
+    }
     for (let i = firstLin; i < dayOfWeek+firstLin; i++) { table.rows[i].cells[firstLin].style.visibility = 'hidden'; }
     for (let i = firstLin+dayOfWeek+1; i < numLins; i++) { table.rows[i].cells[numCols-1].style.visibility = 'hidden'; }
+}
+
+function resetMonthsNames(table) {
+    for (let i=0; i < numCols; i++) {
+        table.rows[0].cells[i].innerHTML = '';
+    }
 }
 
 function setDayActivity(cell, date) {
@@ -47,6 +114,7 @@ function setDayActivity(cell, date) {
     
     if (!json.hasOwnProperty(dateStr)) {
         cell.getElementsByTagName('span')[0].innerHTML = 'no activity on ' + dateStr;
+        cell.style.backgroundColor = inactiveColor;
         return;
     }
     const cf = json[dateStr]["cf"];
@@ -58,7 +126,10 @@ function setDayActivity(cell, date) {
     else if (gh_checked && gh > 0) { cell.style.backgroundColor = githubColor; }
     else { cell.style.backgroundColor = inactiveColor; }
 
-    cell.getElementsByTagName('span')[0].innerHTML = (cf + gh) + ' activities on ' + dateStr;
+    let activities = 0;
+    if (cf_checked) activities += cf;
+    if (gh_checked) activities += gh;
+    cell.getElementsByTagName('span')[0].innerHTML = activities + ' activities on ' + dateStr;
 }
 
 function addClickListener() {
