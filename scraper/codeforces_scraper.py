@@ -30,7 +30,7 @@ def scrape_codeforces():
         for row in rows_data:
             output.append(row)
 
-    with open("codeforces.json", "w") as outfile:
+    with open("scraper/output/codeforces.json", "w") as outfile:
         json.dump(output, outfile)
 
     driver.quit()

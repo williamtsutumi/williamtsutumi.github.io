@@ -34,7 +34,7 @@ def scrape_github():
                 continue
             output.append(parse_text(tooltip.text, year_str))
 
-    with open("github.json", "w") as outfile:
+    with open("scraper/output/github.json", "w") as outfile:
         json.dump(output, outfile)
 
     driver.quit()
