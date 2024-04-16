@@ -14,40 +14,50 @@
         <h2>Personal activity calendar</h2>
         <div class="d-flex">
             <p>made by William Tsutumi</p>
-            <div class="social-container">
-                <a href="https://github.com/williamtsutumi" target="_blank">
-                    <i class="fa fa-github"></i>
-                </a>
-            </div>
-            <div class="social-container">
-                <a href="https://www.linkedin.com/in/william-tsutumi-6944a8244/" target="_blank">
-                    <i class="fa fa-linkedin"></i>
+            <div id="all-socials" class="d-flex">
+                <div class="social-container">
+                    <a href="https://github.com/williamtsutumi" target="_blank">
+                        <i class="fa fa-github"></i>
+                    </a>
+                </div>
+                <div class="social-container">
+                    <a href="https://www.linkedin.com/in/william-tsutumi-6944a8244/" target="_blank">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                </div>
+                <a class="social-container cf-social" href="https://codeforces.com/profile/williamkenzot" target="_blank" style="background-size: cover; background-image: url('cf-icon.png');">
                 </a>
             </div>
         </div>
     </header>
     <main>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;This is meant to be a github-like activity calendar where we can view a user's actions over the year. Here i unite my activity over some computer science related websites that i use frequently (or every now and then).</p>
+        <p id="explanation">&nbsp;&nbsp;&nbsp;&nbsp;This is meant to be a github-like activity calendar where we can view a user's actions over the year. Here i unite my activity over some computer science related websites that i use frequently (or every now and then). You may view any of my profiles <a href="#all-socials">here</a>.</p>
         <div>
             <div class="d-flex filters-container">
-                <div style="width: 50%">
+                <div>
                     <p>Filters:</p>
                     <div class="filter">
                         <input id="cf-checkbox" type="checkbox" checked onclick="addJsonInfoToCalendar()">
-                        <label for="cf-checkbox">Codeforces</label>
+                        <label for="cf-checkbox">
+                            <div class="day cf-activity"></div>
+                            Codeforces
+                        </label>
                     </div>
                     <div class="filter">
                         <input id="gh-checkbox" type="checkbox" checked onclick="addJsonInfoToCalendar()">
-                        <label for="gh-checkbox">Github</label>
+                        <label for="gh-checkbox">
+                            <div class="day gh-activity"></div>
+                            Github
+                        </label>
                     </div>
                 </div>
-                <div id="year-filter-container" style="width: 50%">
+                <div id="year-filter-container">
                     <p>Time:</p>
                 </div>
             </div>
             <table id="calendar" class="calendar">
                 <tbody>
-                    <div class="">
+                    <div>
                         <tr class="hide">
                             <td></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td><td class="day tooltip"><span class="tooltiptext"></span></td>
                         </tr>

@@ -1,8 +1,19 @@
+:root {
+    --primary: rgb(1, 4, 9);
+    --secondary: rgb(13, 17, 23);
+    --tertiary: rgb(48, 54, 61);
+    --inactive: dimgray;
+
+    --aside: rgb(22,27,34);
+    --cf-activity: mediumBlue;
+    --gh-acitivity: forestGreen;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: rgb(1, 4, 9);
+    background-color: var(--primary);
     color: white;
 }
 
@@ -12,49 +23,62 @@ main {
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 20px;
-    background-color: rgb(13, 17, 23);
+    background-color: var(--secondary);
 
     border-style: solid;
-    border-color: rgb(48, 54, 61);
+    border-color: var(--tertiary);
     border-width: 1px;
     border-radius: 5px;
 }
 
-.d-flex {
-    display: flex;
+#explanation {
+    border-radius: 3px;
+    background-color: var(--aside);
+    padding: 10px;
+    margin: 0px 0px 20px 0px;
 }
 
+div:target {
+    border-radius: 3px;
+    animation: highlight 1000ms ease-out;
+  }
+@keyframes highlight {
+    0% {
+        background-color: salmon;
+    }
+}
+        
 
 /* CALENDAR */
 
 .calendar {
     border-collapse: collapse;
+    margin-top: 25px;
+    padding-bottom: 25px;
+    justify-content: center;
 }
 table {
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
 }
-    table.calendar .day {
-        background-color: dimgray;
+    .day {
+        background-color: var(--inactive);
         width: 10px;
         height: 10px;
         padding: 0;
         margin: 0px 4px;
         border-radius: 2px;
     }
-    table.calendar .day:hover {
+    .day:hover {
         cursor: pointer;
-    }
-    tbody tr.hide {
-        visibility: hidden;
     }
     td {
         font-size: 12px;
     }
 
 #day-details {
-    background-color: rgb(22,27,34);
+    background-color: var(--aside);
     padding: 10px;
     border-radius: 3px;
     display: inline-block;
@@ -68,30 +92,41 @@ input[type="checkbox"] {
     display: none;
 }
 .filter {
-    padding: 5px;
-    margin-left: 10px;
     display: inline-block;
-    border-color: rgb(48, 54, 61);
-    border-style: solid;
-    border-width: 1px;
-    cursor: pointer;
+    margin-left: 10px;
 }
-    .filter:has(input:checked) {
+    input[type=checkbox]:checked + label {
         border-color: green;
     }
     .filter label {
+        padding: 5px;
+        border-color: var(--tertiary);
+        border-style: solid;
+        border-width: 1px;
         user-select: none;
         cursor: pointer;
+    }
+    .filters-container {
+        justify-content: space-around;
     }
     .filters-container p {
         align-content: center;
         margin: 0;
         display: inline-block;
     }
+    .filter .day {
+        display: inline-block;
+    }
+    .filter .cf-activity {
+        background-color: var(--cf-activity);
+    }
+    .filter .gh-activity {
+        background-color: var(--gh-acitivity);
+    }
 
 hr {
     border: none;
-    background-color: rgb(48, 54, 61);
+    background-color: var(--tertiary);
     height: 1px;
 }
 
@@ -117,6 +152,7 @@ hr {
         bottom: 125%;
         opacity: 0;
         transition: opacity 0.2s;
+        pointer-events: none;
     }
     .tooltip:hover .tooltiptext {
         visibility: visible;
@@ -129,8 +165,8 @@ hr {
 .social-container {
     margin: auto;
     margin-left: 10px;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     overflow: hidden;
     align-content: center;
 }
@@ -145,12 +181,20 @@ hr {
 header {
     padding: 5px 50px;
     display: flex;
-    background-color: rgb(13, 17, 23);
+    background-color: var(--secondary);
     justify-content: space-between;
-    border-bottom: solid rgb(48, 54, 61);
+    border-bottom: solid var(--tertiary);
     border-width: 1px;
 }
     header p {
         margin: auto;
         margin-right: 10px;
     }
+
+.hide {
+    visibility: hidden;
+}
+
+.d-flex {
+    display: flex;
+}

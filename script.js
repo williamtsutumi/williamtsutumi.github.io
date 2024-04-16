@@ -7,8 +7,8 @@ const numLins = 8;
 const firstLin = 1;
 const firstCol = 1;
 
-const codeforcesColor = 'MidnightBlue';
-const githubColor = 'darkGreen';
+const codeforcesColor = 'mediumBlue';
+const githubColor = 'forestGreen';
 const inactiveColor = 'dimgray';
 
 let currentSelectedYear = 0;
