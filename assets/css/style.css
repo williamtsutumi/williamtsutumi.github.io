@@ -2,9 +2,9 @@
     --primary: rgb(1, 4, 9);
     --secondary: rgb(13, 17, 23);
     --tertiary: rgb(48, 54, 61);
-    --inactive: dimgray;
-
     --aside: rgb(22,27,34);
+    
+    --inactive: dimgray;
     --cf-activity: mediumBlue;
     --gh-activity: forestGreen;
 }
@@ -46,6 +46,7 @@ main {
     margin-top: 25px;
     padding-bottom: 25px;
     justify-content: center;
+    user-select: none;
 }
 table {
     display: flex;
@@ -218,15 +219,31 @@ header {
 }
 
 
-/* TARGET ANIMATION */
+/* ANIMATION */
 
 div:target {
-    border-radius: 3px;
-    animation: highlight 1000ms ease-out;
-  }
+    border-radius: 5px;
+    animation: target 500ms ease-out;
+    animation-iteration-count: 2;
+    padding-right: 10px;
+}
+.highlight {
+    animation: highlight 300ms ease-out;
+}
+    @keyframes target {
+        0% {
+            background-color: var(--secondary);
+        }
+        50% {
+            background-color: yellow;
+        }
+        100% {
+            background-color: var(--secondary);
+        }
+    }
     @keyframes highlight {
         0% {
-            background-color: salmon;
+            background-color: var(--secondary);
         }
     }
 

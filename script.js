@@ -154,5 +154,9 @@ function addClickListener() {
         }
         document.getElementById('codeforces-detail').innerHTML = "activity in codeforces: " + cf;
         document.getElementById('github-detail').innerHTML = "activity in github: " + gh;
+        document.getElementById('day-details').className = 'highlight';
+        setTimeout(() => {
+            document.getElementById('day-details').className = '';
+        }, 300);
     });
 }
