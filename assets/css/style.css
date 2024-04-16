@@ -6,7 +6,7 @@
 
     --aside: rgb(22,27,34);
     --cf-activity: mediumBlue;
-    --gh-acitivity: forestGreen;
+    --gh-activity: forestGreen;
 }
 
 body {
@@ -36,16 +36,6 @@ main {
     background-color: var(--aside);
     padding: 10px;
     margin: 0px 0px 20px 0px;
-}
-
-div:target {
-    border-radius: 3px;
-    animation: highlight 1000ms ease-out;
-  }
-@keyframes highlight {
-    0% {
-        background-color: salmon;
-    }
 }
         
 
@@ -78,7 +68,7 @@ table {
     }
 
 #day-details {
-    background-color: var(--aside);
+    background-color: rgb(31,111,235);
     padding: 10px;
     border-radius: 3px;
     display: inline-block;
@@ -93,7 +83,8 @@ input[type="checkbox"] {
 }
 .filter {
     display: inline-block;
-    margin-left: 10px;
+    margin: 0 0 1rem 10px;
+    padding: 0;
 }
     input[type=checkbox]:checked + label {
         border-color: green;
@@ -121,7 +112,7 @@ input[type="checkbox"] {
         background-color: var(--cf-activity);
     }
     .filter .gh-activity {
-        background-color: var(--gh-acitivity);
+        background-color: var(--gh-activity);
     }
 
 hr {
@@ -189,6 +180,54 @@ header {
     header p {
         margin: auto;
         margin-right: 10px;
+    }
+
+
+/* RESPONSIVITY */
+
+/* bootstrap medium */
+@media screen and (max-width: 768px) {
+    main {
+        padding: 10px;
+        margin: auto;
+        background-color: var(--secondary);
+        width: auto;
+        border-width: 0;
+    }
+    #explanation {
+        padding: 0 !important;
+        background-color: var(--secondary);
+    }
+}
+
+/* bootstrap small */
+@media screen and (max-width: 576px) {
+    p {
+        margin-bottom: 10px !important;
+    }
+    .sm-display-block {
+        display: block !important;
+    }
+}
+
+/* L-movel */
+@media screen and (max-width: 425px) {
+    .filters-container {
+        justify-content: space-between;
+    }
+}
+
+
+/* TARGET ANIMATION */
+
+div:target {
+    border-radius: 3px;
+    animation: highlight 1000ms ease-out;
+  }
+    @keyframes highlight {
+        0% {
+            background-color: salmon;
+        }
     }
 
 .hide {

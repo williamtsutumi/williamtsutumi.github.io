@@ -21,7 +21,7 @@ window.onload = function () {
 
 function addYearOptions() {
     document.getElementById('year-filter-container').innerHTML +=
-        `<div class="filter">
+        `<div class="filter sm-display-block">
             <input id="year0" type="checkbox" checked onclick="addJsonInfoToCalendar(0)">
             <label for="year0">Now</label>
         </div>`;
@@ -31,7 +31,7 @@ function addYearOptions() {
     for (let i = 1; i <= yearDiff; i++) {
         const id = 'year' + i;
         document.getElementById('year-filter-container').innerHTML +=
-            `<div class="filter">
+            `<div class="filter sm-display-block">
                 <input id="${id}" type="checkbox" onclick="addJsonInfoToCalendar(${i})">
                 <label for="${id}">${i} year(s) ago</label>
             </div>`;
@@ -49,9 +49,13 @@ function addJsonInfoToCalendar(yearDiff) {
     let currDate = new Date();
     currDate.setTime(currDate.getTime() - (yearDiff * msInADay * 365));
     let dayOfWeek = currDate.getDay();
+
     hideExtraDaySquares(table, dayOfWeek);
     highlightRightMostSquare(table, table.rows[firstLin+dayOfWeek].cells[numCols-1]);
+    setToolTips(table, currDate, dayOfWeek);
+}
 
+function setToolTips(table, currDate, dayOfWeek) {
     for (let i = firstLin+dayOfWeek; i >= firstLin; i--) {
         setDayActivity(table.rows[i].cells[numCols-1], currDate);
         writeMonthName(currDate, table);
