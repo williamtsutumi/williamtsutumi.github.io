@@ -18,6 +18,7 @@ window.onload = function () {
     addYearOptions();
     addJsonInfoToCalendar();
     addClickListener();
+    addLastTimeUpdated();
 }
 
 function addYearOptions() {
@@ -160,4 +161,10 @@ function addClickListener() {
             document.getElementById('day-details').className = '';
         }, 300);
     });
+}
+
+function addLastTimeUpdated() {
+    document.getElementById('last-update').innerHTML = `
+    <p>Last time updated: ${last_update}</p>
+    `
 }

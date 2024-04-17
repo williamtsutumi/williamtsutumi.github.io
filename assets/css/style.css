@@ -43,12 +43,11 @@ main {
 
 .calendar {
     border-collapse: collapse;
-    margin-top: 25px;
+    margin-top: 15px;
     padding-bottom: 25px;
     justify-content: center;
     user-select: none;
-}
-table {
+
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
@@ -186,6 +185,13 @@ header {
 
 /* RESPONSIVITY */
 
+/* bootstrap X large */
+@media screen and (max-width: 1400px) {
+    .calendar {
+        justify-content: left !important;
+    }
+}
+
 /* bootstrap medium */
 @media screen and (max-width: 768px) {
     main {
@@ -253,4 +259,12 @@ div:target {
 
 .d-flex {
     display: flex;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.ml-1 {
+    margin-left: 10px;
 }
