@@ -47,8 +47,8 @@ def update_website_json():
 
 
 def main():
-    # scrape_everything()
-    # save_githubpages_json()
+    scrape_everything()
+    save_githubpages_json()
     update_website_json()
 
 
