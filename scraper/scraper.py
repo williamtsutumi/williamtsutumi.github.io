@@ -4,6 +4,13 @@ from github_scraper import scrape_github
 
 
 def scrape_everything():
-    # scrape_beecrowd()
-    # scrape_codeforces()
-    scrape_github()
+    try_wrapper('beecrowd', scrape_beecrowd())
+    try_wrapper('github', scrape_github())
+    try_wrapper('codeforces', scrape_codeforces())
+
+
+def try_wrapper(website, func):
+    try:
+        func()
+    except:
+        print(website + ' scraper stopped working')
