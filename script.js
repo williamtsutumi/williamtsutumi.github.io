@@ -60,7 +60,7 @@ function addJsonInfoToCalendar(yearDiff) {
 function setToolTips(table, currDate, dayOfWeek) {
     for (let i = firstLin+dayOfWeek; i >= firstLin; i--) {
         setDayActivity(table.rows[i].cells[numCols-1], currDate);
-        writeMonthName(currDate, table);
+        writeMonthName(currDate, table.rows[0].cells[numCols-1]);
         currDate.setTime(currDate.getTime() - msInADay);
     }
 

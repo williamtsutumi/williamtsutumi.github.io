@@ -1,5 +1,5 @@
 cd ..
-if [ $(date +%d) -eq 17 ] ; then
+if [ $(date +%d) -eq 1 ] ; then
     ./venv/Scripts/python.exe scraper/main.py
     git pull
     git add .
