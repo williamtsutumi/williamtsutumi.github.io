@@ -46,13 +46,21 @@ def update_website_json():
         js.writelines(data[2:])
 
 
+def set_next_update():
+    with open('automation/update.sh', 'r+') as shell:
+        data = shell.read().splitlines(True)
+        data[1] = 'month="' + str((((datetime.now().month + 1) % 12) + 1)) + '"'
+        shell.writelines(data)
+
+
 def main():
+    print('starting scraping')
     scrape_everything()
     save_githubpages_json()
     update_website_json()
+    set_next_update()
+    print('updated successfully')
 
 
 if __name__ == '__main__':
-    print('starting scraping')
     main()
-    print('website json updated successfully')

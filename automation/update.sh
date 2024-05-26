@@ -1,10 +1,9 @@
 #!/bin/bash
-month=`date +"%m"`
-day=`date +"%d"`
+month=5
 
 cd personal-activity
 
-if [ $day -eq 26 ] && [ $month -eq 5 ]
+if [ $month -le date +"%m" ]
 then
     ./venv/Scripts/python.exe scraper/main.py
     git pull
