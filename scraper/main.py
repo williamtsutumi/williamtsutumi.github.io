@@ -49,7 +49,10 @@ def update_website_json():
 def set_next_update():
     with open('automation/update.sh', 'r+') as shell:
         data = shell.read().splitlines(True)
-        data[1] = 'month="' + str((((datetime.now().month + 1) % 12) + 1)) + '"'
+        month = datetime.now().month
+        month_str = month + 1 if month < 12 else 1
+        data[1] = 'month="' + str(month_str) + '"\n'
+    with open('automation/update.sh', 'w') as shell:
         shell.writelines(data)
 
 

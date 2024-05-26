@@ -14,18 +14,13 @@ def scrape_github():
     driver.maximize_window()
 
     conf = GithubConfigs()
-    driver.get(conf.gh_url)
-    time.sleep(5)
+    # driver.get(conf.gh_url)
 
-    year_list = driver.find_elements(By.TAG_NAME, 'ul')[-4]
-    iters = len(year_list.find_elements(By.TAG_NAME, 'li'))
-
+    iters = datetime.now().year - conf.first_year + 1
     output = []
     for i in range(iters):
-        year_list = driver.find_elements(By.TAG_NAME, 'ul')[-4]
-        curr_year = year_list.find_elements(By.TAG_NAME, 'li')[i]
-        year_str = curr_year.find_element(By.TAG_NAME, 'a').text
-        curr_year.click()
+        year_str = str(conf.first_year + i)
+        driver.get(conf.contr_url(year_str))
         time.sleep(5)
 
         tooltips = driver.find_elements(By.TAG_NAME, 'tool-tip')[conf.first_tooltip:]
@@ -34,8 +29,9 @@ def scrape_github():
                 continue
             output.append(parse_text(tooltip.text, year_str))
 
-    with open("scraper/output/github.json", "w") as outfile:
-        json.dump(output, outfile)
+    if output:
+        with open("scraper/output/github.json", "w") as outfile:
+            json.dump(output, outfile)
 
     driver.quit()
 

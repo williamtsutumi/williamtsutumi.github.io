@@ -12,8 +12,12 @@ class CodeforcesConfigs:
 
 
 class GithubConfigs:
+    first_year = 2021
     user = 'williamtsutumi'
     gh_url = 'https://github.com/' + user
+
+    def contr_url(self, year: str):
+        return 'https://github.com/williamtsutumi?tab=overview&from=' + year + '-01-01&to=' + year + '-12-31'
 
     no_contribution_text = 'No contributions on '
     first_tooltip = 7
