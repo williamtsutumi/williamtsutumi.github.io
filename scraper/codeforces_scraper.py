@@ -6,6 +6,8 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from datetime import datetime
+import pathlib
+import os
 
 
 def scrape_codeforces():
@@ -31,8 +33,16 @@ def scrape_codeforces():
             output.append(row)
 
     if output:
-        with open("scraper/output/codeforces.json", "w") as outfile:
+        with open("scraper/output/tmp.json", "w") as outfile:
             json.dump(output, outfile)
+
+        size_saved = pathlib.Path('scraper/output/codeforces.json').stat().st_size
+        size_current = pathlib.Path('scraper/output/tmp.json').stat().st_size
+        if size_current > size_saved:
+            with open("scraper/output/codeforces.json", "w") as outfile:
+                json.dump(output, outfile)
+
+        os.remove("scraper/output/tmp.json")
 
     driver.quit()
 

@@ -7,6 +7,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from datetime import datetime
 from time import strptime
+import pathlib
+import os
 
 
 def scrape_github():
@@ -30,8 +32,16 @@ def scrape_github():
             output.append(parse_text(tooltip.text, year_str))
 
     if output:
-        with open("scraper/output/github.json", "w") as outfile:
+        with open("scraper/output/tmp.json", "w") as outfile:
             json.dump(output, outfile)
+
+        size_saved = pathlib.Path('scraper/output/github.json').stat().st_size
+        size_current = pathlib.Path('scraper/output/tmp.json').stat().st_size
+        if size_current > size_saved:
+            with open("scraper/output/github.json", "w") as outfile:
+                json.dump(output, outfile)
+
+        os.remove("scraper/output/tmp.json")
 
     driver.quit()
 
