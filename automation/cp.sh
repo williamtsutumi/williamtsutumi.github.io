@@ -1,0 +1,17 @@
+#!/bin/bash
+
+month="6"
+
+cd personal-activity
+
+if [ $month -le $(date +"%m") ]
+then
+    echo "updating github pages"
+    git pull
+    ./venv/Scripts/python.exe scraper/main.py
+    git add .
+    git commit -m "automatic update $(date +"%d-%m-%Y")"
+    git push origin main
+    cd 
+fi
+
