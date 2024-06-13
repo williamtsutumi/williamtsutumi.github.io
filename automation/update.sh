@@ -12,6 +12,9 @@ then
     git add .
     git commit -m "automatic update $(date +"%d-%m-%Y")"
     git push origin main
-    cd 
+else
+    echo "github pages already updated this month"
 fi
+
+cd
 
