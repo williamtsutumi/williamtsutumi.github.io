@@ -78,10 +78,13 @@ def format_date(text):
 
 def authenticate(driver):
     driver.get("https://cses.fi/login")
+    print("CSES authentication")
     user = driver.find_element(By.ID, 'nick')
-    user.send_keys('williamkt')
+    username = input("Username: ")
+    user.send_keys(username)
     pwd = driver.find_element(By.NAME, 'pass')
-    pwd.send_keys('WaGJiyHG00C')
+    password = input("Password: ")
+    pwd.send_keys(password)
 
     submit = driver.find_element(By.XPATH, "//input[@type='submit']")
     submit.click()

@@ -8,4 +8,4 @@ def scrape_everything():
     scrape_beecrowd()
     scrape_github()
     scrape_codeforces()
-    scrape_cses()
+    # scrape_cses()
