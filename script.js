@@ -37,7 +37,7 @@ function addYearOptions() {
         document.getElementById('year-filter-container').innerHTML +=
             `<div class="filter sm-display-block">
                 <input id="${id}" type="checkbox" onclick="addJsonInfoToCalendar(${i})">
-                <label for="${id}">${i} year(s) ago</label>
+                <label for="${id}">${i} year ago</label>
             </div>`;
     }
 }
