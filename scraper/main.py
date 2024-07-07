@@ -2,16 +2,14 @@ from scraper import scrape_everything
 import json
 from datetime import datetime
 
-empty_index = {"cf": 0, "gh": 0}
-
 
 def add_cf_json(output):
     with open('scraper/output/codeforces.json') as json_file:
         activities = json.load(json_file)
         for activity in activities:
             date = activity["date"]
-            if not (date in output):
-                output[date] = dict(empty_index)
+            if not (date in output) or not ("cf" in output[date]):
+                output[date] = dict({"cf": 0})
             output[date]["cf"] += 1
 
 
@@ -20,15 +18,26 @@ def add_gh_json(output):
         activities = json.load(json_file)
         for activity in activities:
             date = activity["date"]
-            if not (date in output):
-                output[date] = dict(empty_index)
+            if not (date in output) or not ("gh" in output[date]):
+                output[date] = dict({"gh": 0})
             output[date]["gh"] = activity["count"]
+
+
+def add_bc_json(output):
+    with open('scraper/output/beecrowd.json') as json_file:
+        activities = json.load(json_file)
+        for activity in activities:
+            date = activity["date"]
+            if not (date in output) or not ("bc" in output[date]):
+                output[date] = dict({"bc": 0})
+            output[date]["bc"] += 1
 
 
 def save_githubpages_json():
     all_data = {}
     add_cf_json(all_data)
     add_gh_json(all_data)
+    add_bc_json(all_data)
 
     with open('scraper/output/gh_pages.json', 'w') as data:
         json.dump(all_data, data)
@@ -66,4 +75,11 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    while True:
+        ans = input("update github pages now? (Y/N) ")
+        if ans.upper() == "Y":
+            main()
+        elif ans.upper() == "N":
+            break
+        else:
+            continue

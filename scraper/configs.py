@@ -21,3 +21,10 @@ class GithubConfigs:
 
     no_contribution_text = 'No contributions on '
     first_tooltip = 7
+
+
+class BeecrowdConfigs:
+    bc_url = 'https://judge.beecrowd.com/en/profile/573987'
+
+    def get_page(self, page: int):
+        return self.bc_url + "?page=" + str(page)
