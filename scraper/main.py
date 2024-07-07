@@ -3,41 +3,22 @@ import json
 from datetime import datetime
 
 
-def add_cf_json(output):
-    with open('scraper/output/codeforces.json') as json_file:
+def add_json_wrapper(output, filename, abbreviation, operation):
+    with open('scraper/output/' + filename) as json_file:
         activities = json.load(json_file)
         for activity in activities:
             date = activity["date"]
-            if not (date in output) or not ("cf" in output[date]):
-                output[date] = dict({"cf": 0})
-            output[date]["cf"] += 1
-
-
-def add_gh_json(output):
-    with open('scraper/output/github.json') as json_file:
-        activities = json.load(json_file)
-        for activity in activities:
-            date = activity["date"]
-            if not (date in output) or not ("gh" in output[date]):
-                output[date] = dict({"gh": 0})
-            output[date]["gh"] = activity["count"]
-
-
-def add_bc_json(output):
-    with open('scraper/output/beecrowd.json') as json_file:
-        activities = json.load(json_file)
-        for activity in activities:
-            date = activity["date"]
-            if not (date in output) or not ("bc" in output[date]):
-                output[date] = dict({"bc": 0})
-            output[date]["bc"] += 1
+            if not (date in output) or not (abbreviation in output[date]):
+                output[date] = dict({abbreviation: 0})
+            output[date][abbreviation] = operation(output[date][abbreviation], activity)
 
 
 def save_githubpages_json():
     all_data = {}
-    add_cf_json(all_data)
-    add_gh_json(all_data)
-    add_bc_json(all_data)
+    add_json_wrapper(all_data, 'github.json', 'gh', lambda output, activity: activity["count"])
+    add_json_wrapper(all_data, 'beecrowd.json', 'bc', lambda output, activity: output + 1)
+    add_json_wrapper(all_data, 'codeforces.json', 'cf', lambda output, activity: output + 1)
+    add_json_wrapper(all_data, 'cses.json', 'cses', lambda output, activity: output + 1)
 
     with open('scraper/output/gh_pages.json', 'w') as data:
         json.dump(all_data, data)
@@ -79,6 +60,7 @@ if __name__ == '__main__':
         ans = input("update github pages now? (Y/N) ")
         if ans.upper() == "Y":
             main()
+            break
         elif ans.upper() == "N":
             break
         else:

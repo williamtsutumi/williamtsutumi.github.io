@@ -8,6 +8,7 @@
     --cf-activity: mediumBlue;
     --gh-activity: green;
     --bc-activity: purple;
+    --cses-activity: brown;
 }
 
 body {
@@ -117,6 +118,9 @@ input[type="checkbox"] {
     }
     .filter .bc-activity {
         background-color: var(--bc-activity);
+    }
+    .filter .cses-activity {
+        background-color: var(--cses-activity);
     }
 
 hr {
