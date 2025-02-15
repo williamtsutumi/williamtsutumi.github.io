@@ -1,10 +1,13 @@
 from scraper import scrape_everything
 import json
+import os
 from datetime import datetime
 
+from definitions import GH_PAGES_JSON, GH_JSON, BC_JSON, CF_JSON, CSES_JSON, SCRIPT_PATH, UPDATE_PATH
 
-def add_json_wrapper(output, filename, abbreviation, operation):
-    with open('scraper/output/' + filename) as json_file:
+
+def add_json_wrapper(output, filepath, abbreviation, operation):
+    with open(filepath) as json_file:
         activities = json.load(json_file)
         for activity in activities:
             date = activity["date"]
@@ -15,20 +18,20 @@ def add_json_wrapper(output, filename, abbreviation, operation):
 
 def save_githubpages_json():
     all_data = {}
-    add_json_wrapper(all_data, 'github.json', 'gh', lambda output, activity: activity["count"])
-    add_json_wrapper(all_data, 'beecrowd.json', 'bc', lambda output, activity: output + 1)
-    add_json_wrapper(all_data, 'codeforces.json', 'cf', lambda output, activity: output + 1)
-    add_json_wrapper(all_data, 'cses.json', 'cses', lambda output, activity: output + 1)
+    add_json_wrapper(all_data, GH_JSON, 'gh', lambda output, activity: activity["count"])
+    add_json_wrapper(all_data, BC_JSON, 'bc', lambda output, activity: output + 1)
+    add_json_wrapper(all_data, CF_JSON, 'cf', lambda output, activity: output + 1)
+    add_json_wrapper(all_data, CSES_JSON, 'cses', lambda output, activity: output + 1)
 
-    with open('scraper/output/gh_pages.json', 'w') as data:
+    with open(GH_PAGES_JSON, 'w') as data:
         json.dump(all_data, data)
 
 
 def update_website_json():
-    with open('script.js', 'r') as js:
+    with open(SCRIPT_PATH, 'r') as js:
         data = js.read().splitlines(True)
-    with open('script.js', 'w') as js:
-        with open('scraper/output/gh_pages.json') as output:
+    with open(SCRIPT_PATH, 'w') as js:
+        with open(GH_PAGES_JSON) as output:
             json_data = output.readline()
             js.write('const json = ' + json_data +
                      '\nconst last_update = "' + datetime.today().strftime('%d/%m/%y') + '";\n')
@@ -37,12 +40,12 @@ def update_website_json():
 
 
 def set_next_update():
-    with open('automation/update.sh', 'r+') as shell:
+    with open(UPDATE_PATH, 'r+') as shell:
         data = shell.read().splitlines(True)
         month = datetime.now().month
         month_str = month + 1 if month < 12 else 1
         data[1] = 'month="' + str(month_str) + '"\n'
-    with open('automation/update.sh', 'w') as shell:
+    with open(UPDATE_PATH, 'w') as shell:
         shell.writelines(data)
 
 

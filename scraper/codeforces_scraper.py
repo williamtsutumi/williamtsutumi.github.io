@@ -9,9 +9,11 @@ from datetime import datetime
 import pathlib
 import os
 
+from definitions import CF_JSON, TMP_JSON
+
 
 def scrape_codeforces():
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     driver.maximize_window()
 
     conf = CodeforcesConfigs()
@@ -33,16 +35,16 @@ def scrape_codeforces():
             output.append(row)
 
     if output:
-        with open("scraper/output/tmp.json", "w") as outfile:
+        with open(TMP_JSON, "w") as outfile:
             json.dump(output, outfile)
 
-        size_saved = pathlib.Path('scraper/output/codeforces.json').stat().st_size
-        size_current = pathlib.Path('scraper/output/tmp.json').stat().st_size
+        size_saved = pathlib.Path(CF_JSON).stat().st_size
+        size_current = pathlib.Path(TMP_JSON).stat().st_size
         if size_current > size_saved:
-            with open("scraper/output/codeforces.json", "w") as outfile:
+            with open(CF_JSON, "w") as outfile:
                 json.dump(output, outfile)
 
-        os.remove("scraper/output/tmp.json")
+        os.remove(TMP_JSON)
 
     driver.quit()
 

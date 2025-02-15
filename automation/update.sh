@@ -1,5 +1,5 @@
 #!/bin/bash
-month="8"
+month="3"
 month="7"
 
 cd personal-activity

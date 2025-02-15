@@ -10,9 +10,11 @@ from time import strptime
 import pathlib
 import os
 
+from definitions import TMP_JSON, GH_JSON
+
 
 def scrape_github():
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     driver.maximize_window()
 
     conf = GithubConfigs()
@@ -32,16 +34,16 @@ def scrape_github():
             output.append(parse_text(tooltip.text, year_str))
 
     if output:
-        with open("scraper/output/tmp.json", "w") as outfile:
+        with open(TMP_JSON, "w") as outfile:
             json.dump(output, outfile)
 
-        size_saved = pathlib.Path('scraper/output/github.json').stat().st_size
-        size_current = pathlib.Path('scraper/output/tmp.json').stat().st_size
+        size_saved = pathlib.Path(GH_JSON).stat().st_size
+        size_current = pathlib.Path(TMP_JSON).stat().st_size
         if size_current > size_saved:
-            with open("scraper/output/github.json", "w") as outfile:
+            with open(GH_JSON, "w") as outfile:
                 json.dump(output, outfile)
 
-        os.remove("scraper/output/tmp.json")
+        os.remove(TMP_JSON)
 
     driver.quit()
 

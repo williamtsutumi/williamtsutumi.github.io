@@ -8,9 +8,11 @@ from datetime import datetime
 import pathlib
 import os
 
+from definitions import TMP_JSON, CSES_JSON
+
 
 def scrape_cses():
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     driver.maximize_window()
 
     authenticate(driver)
@@ -57,16 +59,16 @@ def scrape_cses():
                 pass
 
     if output:
-        with open("scraper/output/tmp.json", "w") as outfile:
+        with open(TMP_JSON, "w") as outfile:
             json.dump(output, outfile)
 
-        size_saved = pathlib.Path('scraper/output/cses.json').stat().st_size
-        size_current = pathlib.Path('scraper/output/tmp.json').stat().st_size
+        size_saved = pathlib.Path(CSES_JSON).stat().st_size
+        size_current = pathlib.Path(TMP_JSON).stat().st_size
         if size_current > size_saved:
-            with open("scraper/output/cses.json", "w") as outfile:
+            with open(CSES_JSON, "w") as outfile:
                 json.dump(output, outfile)
 
-        os.remove("scraper/output/tmp.json")
+        os.remove(TMP_JSON)
 
     driver.quit()
 

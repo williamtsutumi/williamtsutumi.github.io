@@ -2,16 +2,16 @@ import time
 import json
 from configs import BeecrowdConfigs
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from datetime import datetime
 import pathlib
 import os
 
+from definitions import TMP_JSON, BC_JSON
+
 
 def scrape_beecrowd():
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     driver.maximize_window()
 
     conf = BeecrowdConfigs()
@@ -28,16 +28,16 @@ def scrape_beecrowd():
             output.append(row)
 
     if output:
-        with open("scraper/output/tmp.json", "w") as outfile:
+        with open(TMP_JSON, "w") as outfile:
             json.dump(output, outfile)
 
-        size_saved = pathlib.Path('scraper/output/beecrowd.json').stat().st_size
-        size_current = pathlib.Path('scraper/output/tmp.json').stat().st_size
+        size_saved = pathlib.Path(BC_JSON).stat().st_size
+        size_current = pathlib.Path(TMP_JSON).stat().st_size
         if size_current > size_saved:
-            with open("scraper/output/beecrowd.json", "w") as outfile:
+            with open(BC_JSON, "w") as outfile:
                 json.dump(output, outfile)
 
-        os.remove("scraper/output/tmp.json")
+        os.remove(TMP_JSON)
 
     driver.quit()
 
