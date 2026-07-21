@@ -11,9 +11,9 @@
 </head>
 <body>
     <header class="sm-display-block">
-        <a href="#" style="text-decoration: none; color: inherit;"><h2>Personal activity calendar</h2></a>
+        <a href="#" style="text-decoration: none; color: inherit;"><h2>Activity calendar</h2></a>
         <div class="d-flex sm-display-block">
-            <p>made by William Tsutumi</p>
+            <p>William Tsutumi</p>
             <div id="all-socials" class="d-flex">
                 <div class="social-container">
                     <a href="https://www.linkedin.com/in/william-tsutumi-6944a8244/" target="_blank">
@@ -32,11 +32,10 @@
         </div>
     </header>
     <main>
-        <p id="explanation">&nbsp;&nbsp;&nbsp;&nbsp;This is meant to be a github-like activity calendar where we can view a user's actions over the year. Here i unite my activity over some computer science related websites that i use frequently (or every now and then). You may view any of my profiles <a href="#all-socials">here</a>.</p>
+        <p id="explanation">This project is a GitHub-style contributions calendar that aggregates my activity across various computer science platforms. It provides a unified view of my contributions throughout the year, making it easy to explore my work across the websites I use regularly (or used to).</p>
         <div>
             <div class="d-flex filters-container">
                 <div>
-                    <p>Filters:</p>
                     <div class="filter sm-display-block">
                         <input id="cf-checkbox" type="checkbox" checked onclick="addJsonInfoToCalendar()">
                         <label for="cf-checkbox">
@@ -114,15 +113,18 @@
         <hr>
         <h2>How this works</h2>
         <p>
-            &nbsp;&nbsp;&nbsp;&nbsp;All the necessary data is gathered via webscraping,
-            but since i'm not up to pay for a website hosting, i'm using github pages which is free, although it comes with some limitations such as being a static page.
-            A static page is quite a big problem to keep this calendar up to date, so my work around was to output my webscraping to a json, which is put into this page's javascript.
-            This way, all i have to do is to run my python webscraper every a certain amount of time and commit the changed json to this repository,
-            which is a task that i can put my computer to automatically execute once it is turned on.
-            I chose to update every month so that the repository don't get polluted by automatic commits.
+            <h3>Getting all the data and updating this page</h3>
+            <ul>
+                <li>All the necessary data is gathered via Web Scraping.</li>
+                <li>Since i chose to use github pages, it means that i have no backend service to send a HTTP request to get the data from my Web Scraping.</li>
+                <li>My solution was to put the data in a json, inside this page's JavaScript file.</li>
+                <li>Then all i have to do is run my Web Scraper, put the data in a json and then put it in a JavaScript file (plain text), all of which is easily done with python.</li>
+                <li>Not the greatest solution ever, because it's prone to bugs (my python program assumes that the json is in the first line of the JavaScript file), but it's a "good enough" solution for this simple project.</li>
+            </ul>
+            <b>2026 update:</b> my original idea was to set my personal computer, once it was turned on, to run the Web Scraper and automatically update this page's data. And it worked... for like 2 months, until I messed with configuration files and didn't bother fixing this automation.<br><b>Conclusion</b>: it works, but it needed a dedicated computer for all the automation. But if I had that, I might aswell just had a backend server and defeat the whole purpose of this "whacky" implementation.
             <br>
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;The whole visual part of this page was done entirely with raw javascript and css.
-            <br>&nbsp;&nbsp;&nbsp;&nbsp;The webscraper is also in <a href="https://github.com/williamtsutumi/williamtsutumi.github.io">this page's repository</a> if you want to check it out.
+            <br>The whole visual part of this page was done entirely with raw javascript and css.
+            <br>The webscraper is also in <a href="https://github.com/williamtsutumi/williamtsutumi.github.io">this page's repository</a> if you want to check it out.
         </p>
     </main>
 </body>
