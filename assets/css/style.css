@@ -48,6 +48,11 @@ main {
 
 /* CALENDAR */
 
+#year-aside-calendar1 {
+    margin-right: 40px;
+    margin-left: 0px;
+}
+
 .calendar-wrapper {
     overflow: hidden;
     position: relative;
@@ -84,8 +89,8 @@ main {
 }
     .day {
         background-color: var(--inactive);
-        width: 10px;
-        height: 10px;
+        width: 11px;
+        height: 11px;
         padding: 0;
         margin: 0px 4px;
         border-radius: 2px;

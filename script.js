@@ -19,7 +19,7 @@ let currentSelectedYear = new Date().getFullYear() - 2022;
 
 window.onload = function () {
     addYearOptions();
-    addJsonInfoToCalendar();
+    onClickMustUpdateCalendar();
     addClickListener();
     addLastTimeUpdated();
     updateYearAsideCalendar();
@@ -34,7 +34,7 @@ function addYearOptions() {
         if (mustAddYearOption(yearCurrIt)) {
             document.getElementById('year-filter-container').innerHTML +=
                 `<div class="filter sm-display-block">
-                    <input id="${id}" type="checkbox" onclick="addJsonInfoToCalendar(${i})">
+                    <input id="${id}" type="checkbox" onclick="onClickMustUpdateCalendar(${i})">
                     <label for="${id}">${yearCurrIt}</label>
                 </div>`;
         }
@@ -42,7 +42,7 @@ function addYearOptions() {
 
     document.getElementById('year-filter-container').innerHTML +=
         `<div class="filter sm-display-block">
-            <input id="year0" type="checkbox" checked onclick="addJsonInfoToCalendar(0)">
+            <input id="year0" type="checkbox" checked onclick="onClickMustUpdateCalendar(0)">
             <label for="year0">${new Date().getFullYear()}</label>
         </div>`;
 }
@@ -65,16 +65,22 @@ function mustAddYearOption(year) {
     return hasDateInRange;
 }
 
-function addJsonInfoToCalendar(yearDiff) {
+function onClickMustUpdateCalendar(yearDiff) {
+    if (yearDiff != null && yearDiff != currentSelectedYear) {
+        let animationDirection = yearDiff < currentSelectedYear ? "right" : "left";
+        updateAllCalendarInfoAnimationWrapper(animationDirection, () => updateAllCalendarInfo(yearDiff));
+    }
+    else {
+        updateAllCalendarInfo(yearDiff);
+    }
+}
+
+function updateAllCalendarInfoAnimationWrapper(animationDirection, updateCalendarFunction) {
     calendar = document.getElementById("calendar-container");
 
-    let animation1 = "slide-right";
-    let animation2 = "slide-left";
-    if (yearDiff < currentSelectedYear) {
-        animation1 = "slide-left";
-        animation2 = "slide-right";
-    }
-
+    let animation1 = animationDirection == "left" ? "slide-right" : "slide-left";
+    let animation2 = animationDirection == "left" ? "slide-left" : "slide-right";
+    
     calendar.classList.remove(animation1);
     void calendar.offsetWidth;
     calendar.classList.add(animation1);
@@ -87,23 +93,7 @@ function addJsonInfoToCalendar(yearDiff) {
         calendar.classList.remove(animation1);
         calendar.classList.add(animation2);
         
-        if (yearDiff === undefined) yearDiff = currentSelectedYear;
-        currentSelectedYear = yearDiff;
-        updateYearCheckboxes(yearDiff);
-        
-        let table = document.getElementById("calendar");
-        resetMonthsNames(table);
-
-        let currDate = new Date();
-        currDate.setTime(currDate.getTime() - (yearDiff * msInADay * 365));
-        let dayOfWeek = currDate.getDay();
-
-        hideExtraDaySquares(table, dayOfWeek);
-        highlightRightMostSquare(table, table.rows[firstLin+dayOfWeek].cells[numCols-1]);
-        setToolTips(table, currDate, dayOfWeek);
-
-        updateYearAsideCalendar();
-
+        updateCalendarFunction();
 
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
@@ -112,6 +102,26 @@ function addJsonInfoToCalendar(yearDiff) {
             });
         });
     });
+}
+
+function updateAllCalendarInfo(yearDiff) {
+    if (yearDiff == null) yearDiff = currentSelectedYear;
+    currentSelectedYear = yearDiff;
+
+    updateYearCheckboxes(yearDiff);
+    
+    let table = document.getElementById("calendar");
+    resetMonthsNames(table);
+
+    let currDate = new Date();
+    currDate.setTime(currDate.getTime() - (yearDiff * msInADay * 365));
+    let dayOfWeek = currDate.getDay();
+
+    hideExtraDaySquares(table, dayOfWeek);
+    highlightRightMostSquare(table, table.rows[firstLin+dayOfWeek].cells[numCols-1]);
+    setToolTips(table, currDate, dayOfWeek);
+
+    updateYearAsideCalendar();
 }
 
 function setToolTips(table, currDate, dayOfWeek) {
