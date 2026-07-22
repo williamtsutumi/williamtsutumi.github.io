@@ -118,7 +118,7 @@ input[type="checkbox"] {
 }
 
 label[for="cf-checkbox"], label[for="gh-checkbox"], label[for="bc-checkbox"], label[for="cses-checkbox"]  {
-    
+    border-radius: 5px;
 }
 
 label[for^="year"] {
