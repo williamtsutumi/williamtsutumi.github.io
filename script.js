@@ -235,10 +235,10 @@ function addClickListener() {
             if (json[dateStr].hasOwnProperty("bc")) bc = json[dateStr]["bc"];
             if (json[dateStr].hasOwnProperty("cses")) cses = json[dateStr]["cses"];
         }
-        document.getElementById('codeforces-detail').innerHTML = cf == 0 ? "" : "codeforces: " + cf + " submissions";
+        document.getElementById('codeforces-detail').innerHTML = cf == 0 ? "" : "codeforces: " + cf + " code submissions";
         document.getElementById('github-detail').innerHTML = gh == 0 ? "" : "github: " + gh + " commits";
         document.getElementById('beecrowd-detail').innerHTML = bc == 0 ? "" : "beecrowd: " + bc + " solutions";
-        document.getElementById('cses-detail').innerHTML = cses == 0 ? "" : "cses: " + cses + " submissions";
+        document.getElementById('cses-detail').innerHTML = cses == 0 ? "" : "cses: " + cses + " code submissions";
         document.getElementById('day-details').className = 'highlight';
         setTimeout(() => {
             document.getElementById('day-details').className = '';
