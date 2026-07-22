@@ -121,16 +121,16 @@
         <p>
             <h3>Getting all the data and updating this page</h3>
             <ul>
-                <li>All the necessary data is gathered via Web Scraping.</li>
-                <li>Since i chose to use github pages, it means that i have no backend service to send a HTTP request to get the data from my Web Scraping.</li>
-                <li>My solution was to put the data in a json, inside this page's JavaScript file.</li>
-                <li>Then all i have to do is run my Web Scraper, put the data in a json and then put it in a JavaScript file (plain text), all of which is easily done with python.</li>
-                <li>Not the greatest solution ever, because it's prone to bugs (my python program assumes that the json is in the first line of the JavaScript file), but it's a "good enough" solution for this simple project.</li>
+                <li>All the data displayed on this page is gathered through web scraping.</li>
+                <li>Since I chose to host this project on GitHub Pages, I don't have a backend service that can receive HTTP requests and fetch fresh data from my web scraper.</li>
+                <li>Instead, I store the scraped data as JSON embedded in this page's JavaScript. Updating the page is simply a matter of running the scraper, generating a new JSON file, and inserting it into the JavaScript file as plain text. This entire process is automated with Python.</li>
+                <li>It's not the most elegant solution because it's somewhat brittle. For example, my Python script assumes that the JSON is always on the first line of the JavaScript file. Still, it's more than good enough for a small personal project.</li>
             </ul>
-            <b>2026 update:</b> my original idea was to set my personal computer, once it was turned on, to run the Web Scraper and automatically update this page's data. And it worked... for like 2 months, until I messed with configuration files and didn't bother fixing this automation.<br><b>Conclusion</b>: it works, but it needed a dedicated computer for all the automation. But if I had that, I might aswell just had a backend server and defeat the whole purpose of this "whacky" implementation.
+            <b>2026 update:</b> My original idea was to have my personal computer automatically run the web scraper and update this page whenever it was turned on. And it actually worked... for about two months, until I modified some configuration files and never got around to fixing the automation.
+            <br>So yes, the approach works—but it requires a dedicated machine to keep everything automated. At that point, I might as well just run a backend server, which would defeat the whole purpose of this somewhat "wacky" implementation.
             <br>
-            <br>The whole visual part of this page was done entirely with raw javascript and css.
-            <br>The webscraper is also in <a href="https://github.com/williamtsutumi/williamtsutumi.github.io">this page's repository</a> if you want to check it out.
+            <br>The entire front end of this page was built using only vanilla JavaScript and CSS.
+            <br>The web scraper is also available in <a href="https://github.com/williamtsutumi/williamtsutumi.github.io">this page's repository</a> if you'd like to take a look.
         </p>
     </main>
 </body>
