@@ -39,20 +39,48 @@ main {
     padding: 10px;
     margin: 0px 0px 20px 0px;
 }
+
+.year-aside-calendar {
+    align-content: center;
+    margin: 0px 10px;
+}
         
 
 /* CALENDAR */
+
+.calendar-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+.calendar-container.slide-right {
+    transform: translateX(50%);
+    opacity: 0;
+}
+
+.calendar-container.slide-left {
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+.calendar-container {
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    margin: 15px auto 25px auto;
+
+    transition: transform 200ms ease, opacity 200ms ease;
+}
 
 .calendar {
     border-collapse: collapse;
     margin-top: 15px;
     padding-bottom: 25px;
-    justify-content: center;
     user-select: none;
 
     display: flex;
-    overflow-x: auto;
     white-space: nowrap;
+    width: 80%;
 }
     .day {
         background-color: var(--inactive);
@@ -193,10 +221,21 @@ header {
 
 /* RESPONSIVITY */
 
+@media screen and (max-width: 576px) {
+    p {
+        margin-bottom: 10px !important;
+    }
+    .sm-display-block {
+        display: block !important;
+    }
+}
+
+
 /* bootstrap X large */
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1800px) {
     .calendar {
-        justify-content: left !important;
+        overflow-x: auto;
+        width: fit-content;
     }
 }
 

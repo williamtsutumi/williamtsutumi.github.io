@@ -14,49 +14,104 @@ const beecrowdColor = 'purple';
 const csesColor = 'brown';
 const inactiveColor = 'dimgray';
 
-let currentSelectedYear = 0;
+let calendar = document.getElementById("calendar-container");
+let currentSelectedYear = new Date().getFullYear() - 2022;
 
 window.onload = function () {
     addYearOptions();
     addJsonInfoToCalendar();
     addClickListener();
     addLastTimeUpdated();
+    updateYearAsideCalendar();
 }
 
 function addYearOptions() {
+    const yearDiff = new Date().getFullYear() - 2022;
+    for (let i = yearDiff; i >= 1; i--) {
+        const id = 'year' + i;
+        const yearCurrIt = new Date().getFullYear() - i;
+
+        if (mustAddYearOption(yearCurrIt)) {
+            document.getElementById('year-filter-container').innerHTML +=
+                `<div class="filter sm-display-block">
+                    <input id="${id}" type="checkbox" onclick="addJsonInfoToCalendar(${i})">
+                    <label for="${id}">${yearCurrIt}</label>
+                </div>`;
+        }
+    }
+
     document.getElementById('year-filter-container').innerHTML +=
         `<div class="filter sm-display-block">
             <input id="year0" type="checkbox" checked onclick="addJsonInfoToCalendar(0)">
-            <label for="year0">Now</label>
+            <label for="year0">${new Date().getFullYear()}</label>
         </div>`;
+}
 
-    const yearNow = new Date().getFullYear();
-    const yearDiff = yearNow - 2022;
-    for (let i = 1; i <= yearDiff; i++) {
-        const id = 'year' + i;
-        document.getElementById('year-filter-container').innerHTML +=
-            `<div class="filter sm-display-block">
-                <input id="${id}" type="checkbox" onclick="addJsonInfoToCalendar(${i})">
-                <label for="${id}">${i} year ago</label>
-            </div>`;
-    }
+function mustAddYearOption(year) {
+    return true;
+    const d = new Date().getDate();
+    const m = new Date().getMonth();
+    const y = new Date().getFullYear();
+    const start = parseDate(`${d}/${m}/${y-year-1 -2000}`);
+    const end = parseDate(`${d}/${m}/${y-year -2000}`);
+
+    const hasDateInRange = Object.keys(json).some(key => {
+        const date = parseDate(key);
+        
+        if (date >= start && date <= end) console.log(key);
+        return date >= start && date <= end;
+    });
+
+    return hasDateInRange;
 }
 
 function addJsonInfoToCalendar(yearDiff) {
-    if (yearDiff === undefined) yearDiff = currentSelectedYear;
-    currentSelectedYear = yearDiff;
-    updateYearCheckboxes(yearDiff);
-    
-    let table = document.getElementById("calendar");
-    resetMonthsNames(table);
+    calendar = document.getElementById("calendar-container");
 
-    let currDate = new Date();
-    currDate.setTime(currDate.getTime() - (yearDiff * msInADay * 365));
-    let dayOfWeek = currDate.getDay();
+    let animation1 = "slide-right";
+    let animation2 = "slide-left";
+    if (yearDiff < currentSelectedYear) {
+        animation1 = "slide-left";
+        animation2 = "slide-right";
+    }
 
-    hideExtraDaySquares(table, dayOfWeek);
-    highlightRightMostSquare(table, table.rows[firstLin+dayOfWeek].cells[numCols-1]);
-    setToolTips(table, currDate, dayOfWeek);
+    calendar.classList.remove(animation1);
+    void calendar.offsetWidth;
+    calendar.classList.add(animation1);
+
+    calendar.addEventListener("transitionend", function handler(e) {
+        if (e.propertyName !== "transform") return;
+        calendar.removeEventListener("transitionend", handler);
+
+        calendar.style.transition = "none";
+        calendar.classList.remove(animation1);
+        calendar.classList.add(animation2);
+        
+        if (yearDiff === undefined) yearDiff = currentSelectedYear;
+        currentSelectedYear = yearDiff;
+        updateYearCheckboxes(yearDiff);
+        
+        let table = document.getElementById("calendar");
+        resetMonthsNames(table);
+
+        let currDate = new Date();
+        currDate.setTime(currDate.getTime() - (yearDiff * msInADay * 365));
+        let dayOfWeek = currDate.getDay();
+
+        hideExtraDaySquares(table, dayOfWeek);
+        highlightRightMostSquare(table, table.rows[firstLin+dayOfWeek].cells[numCols-1]);
+        setToolTips(table, currDate, dayOfWeek);
+
+        updateYearAsideCalendar();
+
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                calendar.style.transition = "";
+                calendar.classList.remove(animation2);
+            });
+        });
+    });
 }
 
 function setToolTips(table, currDate, dayOfWeek) {
@@ -185,4 +240,19 @@ function addLastTimeUpdated() {
     document.getElementById('last-update').innerHTML = `
     <p>Last time updated: ${last_update}</p>
     `
+}
+
+function updateYearAsideCalendar() {
+    document.getElementById("year-aside-calendar1").innerHTML = new Date().getFullYear() - currentSelectedYear -1;
+    document.getElementById("year-aside-calendar2").innerHTML = new Date().getFullYear() - currentSelectedYear;
+}
+
+
+function parseDate(dateStr) {
+    const [day, month, year] = dateStr.split('/').map(Number);
+
+    // Convert yy -> yyyy (adjust if needed)
+    const fullYear = 2000 + year;
+
+    return new Date(fullYear, month - 1, day);
 }
