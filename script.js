@@ -237,7 +237,7 @@ function addClickListener() {
         }
         document.getElementById('codeforces-detail').innerHTML = cf == 0 ? "" : "codeforces: " + cf + " submissions";
         document.getElementById('github-detail').innerHTML = gh == 0 ? "" : "github: " + gh + " commits";
-        document.getElementById('beecrowd-detail').innerHTML = bc == 0 ? "" : "beecrowd: " + bc + " solves";
+        document.getElementById('beecrowd-detail').innerHTML = bc == 0 ? "" : "beecrowd: " + bc + " solutions";
         document.getElementById('cses-detail').innerHTML = cses == 0 ? "" : "cses: " + cses + " submissions";
         document.getElementById('day-details').className = 'highlight';
         setTimeout(() => {
