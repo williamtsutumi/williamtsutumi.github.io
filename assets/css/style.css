@@ -116,10 +116,20 @@ main {
 input[type="checkbox"] {
     display: none;
 }
+
+label[for="cf-checkbox"], label[for="gh-checkbox"], label[for="bc-checkbox"], label[for="cses-checkbox"]  {
+    
+}
+
+label[for^="year"] {
+    border-radius: 5px;
+}
+
 .filter {
     display: inline-block;
     margin: 0 0 1rem 10px;
     padding: 0;
+    
 }
     input[type=checkbox]:checked + label {
         border-color: green;
